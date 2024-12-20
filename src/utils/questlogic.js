@@ -1,6 +1,6 @@
 import REDUX_CARDS from "./questions";
 
-const ANSWERED_CARDS = [];
+const SELECTED_CARDS = [];
 
 function selectCard() {
   const i = Math.floor(Math.random() * REDUX_CARDS.length);
@@ -9,36 +9,56 @@ function selectCard() {
   return card;
 }
 
-export function showThreeCards(selectedCard) {
-  const cards = [];
+// Fisher-Yates Shuffle algorithm
+export function shuffleArray(array) {
+  const shuffled = [...array]; // Create a copy of the array to avoid mutating the original
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // Random index from 0 to i
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // Swap elements
+  }
+  return shuffled;
+}
+
+export function returnInitialCards() {
+  return REDUX_CARDS;
+}
+
+export function returnSelectedCards() {
+  return SELECTED_CARDS;
+}
+
+export function showShuffleCards(selectedCard) {
   const unselectedCards = REDUX_CARDS.filter(
-    (card) => JSON.stringify(card) !== JSON.stringify(selectedCard)
+    (card) => card.id !== selectedCard.id
   );
 
-  for (let i = 0; i < 3; i++) {
-    cards.push(unselectedCards[i]);
+  if (unselectedCards.length < 3) {
+    throw new Error("Not enough unselected cards to shuffle.");
   }
 
-  return cards;
+  const cards = unselectedCards.slice(0, 3); // Take only the first 3 unselected cards
+
+  cards.push(selectedCard);
+
+  const shuffleCards = shuffleArray(cards);
+
+  return shuffleCards;
 }
 
 export function showSelectedCard() {
   let selectedCard;
 
-  if (REDUX_CARDS.length === ANSWERED_CARDS.length) {
+  if (REDUX_CARDS.length === SELECTED_CARDS.length) {
     return;
   }
 
   do {
     selectedCard = selectCard();
-  } while (
-    ANSWERED_CARDS.some(
-      (card) => JSON.stringify(card) === JSON.stringify(selectedCard)
-    )
-  );
+  } while (SELECTED_CARDS.some((card) => card.id === selectedCard.id));
 
-  ANSWERED_CARDS.push(selectedCard);
-  showThreeCards(selectedCard);
+  SELECTED_CARDS.push(selectedCard);
+
+  // console.log(SELECTED_CARDS);
 
   return selectedCard;
 }
