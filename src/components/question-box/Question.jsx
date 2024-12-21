@@ -1,3 +1,7 @@
+import { useSelector } from "react-redux";
+
 export default function Question({question}) {
-  return <h2>{question}</h2>;
+  const card = useSelector((state) => state.cards.selectedCard);
+
+  return <h2>{card.question}</h2>;
 }

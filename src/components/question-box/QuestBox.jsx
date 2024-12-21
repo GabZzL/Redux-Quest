@@ -1,40 +1,25 @@
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { cardsActions } from "../../store/cards";
+import { answerActions } from "../../store/answer";
 
 import Question from "./Question";
-import Answer from "./Answer";
+import Answers from "./Answers";
 import Feedback from "./Feedback";
 import QuestionNumber from "./QuestionNumber";
 import Results from "./Results";
+import Button from "../../UI/Button";
 
 export default function QuestBox() {
   const dispatch = useDispatch();
 
-  const [isAnswer, setIsAnswer] = useState(null);
-
-  const initialCards = useSelector((state) => state.cards.initialCards);
-  const card = useSelector((state) => state.cards.selectedCard);
   const selectedCards = useSelector((state) => state.cards.selectedCards);
-  const cards = useSelector((state) => state.cards.shuffleCards);
+  const isAnswer = useSelector((state) => state.answer.isAnswer);
 
   function handleNextQuestion() {
-    setIsAnswer(null);
+    dispatch(answerActions.resetAnswer());
 
     dispatch(cardsActions.setSelectedCard());
     dispatch(cardsActions.setSelectAnswers());
-  }
-
-  function handleClick(e) {
-    const userAnswer = e.target.textContent;
-
-    dispatch(cardsActions.setScore(userAnswer));
-
-    if (card.answer === userAnswer) {
-      setIsAnswer({ message: "Correct Answer" });
-    } else {
-      setIsAnswer({ message: "Wrong Answer", correctAnswer: card.answer });
-    }
   }
 
   if (selectedCards.length === 15 && isAnswer) {
@@ -43,22 +28,15 @@ export default function QuestBox() {
 
   return (
     <div>
-      <QuestionNumber
-        actualNumber={selectedCards.length}
-        totalNumber={initialCards.length}
+      <QuestionNumber />
+      <Question />
+      {!isAnswer && <Answers />}
+      {isAnswer && <Feedback />}
+      <Button
+        text="Next Question"
+        isAnswer={isAnswer}
+        onClick={handleNextQuestion}
       />
-      <Question question={card.question} />
-      {!isAnswer && (
-        <ul>
-          {cards.map((card) => (
-            <Answer key={card.id} onClick={handleClick} answer={card.answer} />
-          ))}
-        </ul>
-      )}
-      {isAnswer && <Feedback feedback={isAnswer} />}
-      <button onClick={handleNextQuestion} disabled={!isAnswer}>
-        Next Question
-      </button>
     </div>
   );
 }

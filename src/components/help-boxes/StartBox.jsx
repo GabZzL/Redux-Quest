@@ -1,8 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
+
 import { startActions } from "../../store/start";
 import { cardsActions } from "../../store/cards";
-
 import REDUX_CARDS from "../../utils/questions";
+
+import Button from "../../UI/Button";
 
 export default function StartBox() {
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ export default function StartBox() {
     <>
       {!isStarted && (
         <div id="actions">
-          <button onClick={handleClick}>Start</button>
+          <Button text="Start" isAnswer onClick={handleClick} />
         </div>
       )}
     </>
