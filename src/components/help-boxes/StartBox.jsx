@@ -5,8 +5,9 @@ import { cardsActions } from "../../store/cards";
 import REDUX_CARDS from "../../utils/questions";
 
 export default function StartBox() {
-  const isStarted = useSelector((state) => state.start.isStarted);
   const dispatch = useDispatch();
+
+  const isStarted = useSelector((state) => state.start.isStarted);
 
   function handleClick() {
     dispatch(startActions.start());

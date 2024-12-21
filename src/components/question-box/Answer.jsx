@@ -1,7 +1,7 @@
-export default function Answer({ answer }) {
+export default function Answer({ answer, onClick }) {
   return (
     <li>
-      <p>{answer}</p>
+      <p onClick={onClick}>{answer}</p>
     </li>
   );
 }

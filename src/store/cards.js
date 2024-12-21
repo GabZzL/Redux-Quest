@@ -3,6 +3,7 @@ import { shuffleArray } from "../utils/questlogic";
 
 const initialCardsState = {
   selectedCard: null,
+  score: null,
   shuffleCards: [],
   initialCards: [],
   selectedCards: [],
@@ -44,6 +45,12 @@ const cardsSlice = createSlice({
       const allCards = [...randomCards, state.selectedCard];
 
       state.shuffleCards = shuffleArray(allCards);
+    },
+    setScore(state, action) {
+      const userAnswer = action.payload;
+      if (userAnswer === state.selectedCard.answer) {
+        state.score++;
+      }
     },
   },
 });
