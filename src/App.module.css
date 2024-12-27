@@ -1,0 +1,10 @@
+.container {
+  background-color: #4c2a7a; /* Rich purple background */
+  color: #ffffff; /* White text for contrast */
+  padding: 40px;
+  border-radius: 15px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  max-width: 600px; /* Centered and constrained width */
+  margin: 50px auto;
+  text-align: center;
+}

@@ -5,6 +5,8 @@ import { answerActions } from "../../store/answer";
 
 import Answer from "./Answer";
 
+import classes from "./Answers.module.css";
+
 export default function Answers() {
   const dispatch = useDispatch();
 
@@ -24,7 +26,7 @@ export default function Answers() {
   }
 
   return (
-    <div>
+    <div className={classes.answers}>
       <ul>
         {cards.map((card) => (
           <Answer key={card.id} answer={card.answer} onClick={handleClick} />

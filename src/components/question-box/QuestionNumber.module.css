@@ -1,0 +1,6 @@
+.question-number {
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  font-weight: 300;
+  opacity: 0.8; /* Slightly faded for secondary text */
+}

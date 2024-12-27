@@ -1,0 +1,6 @@
+.answers li{
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 5px;
+  cursor: pointer;
+}

@@ -27,7 +27,7 @@ export default function QuestBox() {
   }
 
   return (
-    <div>
+    <div className="question-box">
       <QuestionNumber />
       <Question />
       {!isAnswer && <Answers />}

@@ -18,7 +18,7 @@ export default function Results() {
 
   return (
     <div>
-      <h2>Your Total Score</h2>
+      <h2>Final Result</h2>
       <p>{message}</p>
       <p>
         {score}/{cards.length}

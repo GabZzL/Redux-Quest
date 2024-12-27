@@ -8,7 +8,9 @@ export default function Feedback() {
     <div>
       <h3>{message}</h3>
       {message === "Wrong Answer" && (
-        <p>The correct answer was: {rightAnswer}</p>
+        <p>
+          <b>The correct answer was:</b> {rightAnswer}
+        </p>
       )}
     </div>
   );
